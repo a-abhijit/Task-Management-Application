@@ -1,18 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task_manager/ui/screens/forgotpass_screen.dart';
 import 'package:task_manager/ui/screens/signup_screen.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class PinVerifyScreen extends StatefulWidget {
+  const PinVerifyScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<PinVerifyScreen> createState() => _PinVerifyScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _PinVerifyScreenState extends State<PinVerifyScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _emailTEcontrol = TextEditingController();
   final TextEditingController _passTEcontrol = TextEditingController();
@@ -31,11 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Get Started With",
+                        "Pin Verification",
                         style: Theme.of(context).textTheme.titleLarge
                         ),
-                
-                      SizedBox(height: 20),
+                      Text("Enter the 6 digit verification pin sent to your email",style: Theme.of(context).textTheme.titleSmall),
+                      SizedBox(height: 30),
                       Container(
                         width: 350,
                 
@@ -57,58 +56,36 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                 
-                      SizedBox(height: 20),
-                      Container(
-                        width: 350,
-                
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return "Password can't be empty";
-                            }else if(_passTEcontrol.text.length<6){
-                              return "Password must contain 6 characters";
-                            }return null;
-                          },
-                          controller: _passTEcontrol,
-                          obscureText: true,
-                          decoration: InputDecoration(hintText: 'Password'),
-                        ),
-                      ),
+
                       SizedBox(height: 25),
                       FilledButton(
                         onPressed: () {
                           if(_formkey.currentState?.validate()==false){
                             return;
                           }
+
+
+
+
                         },
                         child: Icon(Icons.arrow_circle_right_outlined,size: 30,),
                 
                       ),
                 
-                      SizedBox(height: 10),
-                
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotpassScreen()));
-
-
-
-                        },
-                        child: Text("Forgot Password ?"),
-                      ),
-                
-                
                       SizedBox(height: 25,),
-                
+
                       RichText(
                         text: TextSpan(
-                          text: "Don't have account?",
-                          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                          text: "Already have an account?",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                           children: [
                             TextSpan(
-                              text: " Sign up",
-                              style: TextStyle(color: Colors.green),
-                              recognizer: TapGestureRecognizer()..onTap = _onTabSignup,
+                                text: " Sign in",
+                                style: TextStyle(color: Colors.green),
+                                recognizer: TapGestureRecognizer()..onTap=_loginScreen
                             ),
                           ],
                         ),
@@ -123,10 +100,10 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  
-  
-  void _onTabSignup(){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
+
+
+  void _loginScreen(){
+    Navigator.pop(context);
   }
 
   @override

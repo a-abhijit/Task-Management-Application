@@ -9,17 +9,24 @@ class TaskManagerApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         textTheme: TextTheme(
+          titleSmall: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey
+          ),
+
           titleLarge: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 32
           )
         ),
 
+
         filledButtonTheme: FilledButtonThemeData(
             style: FilledButton.styleFrom(
                 backgroundColor: Colors.green,
                 fixedSize: Size.fromWidth(400),
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(5),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)
                 )

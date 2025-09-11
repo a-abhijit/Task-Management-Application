@@ -7,17 +7,17 @@ import 'package:task_manager/ui/widgets/screen_background.dart';
 
 import 'login_screen.dart';
 
-class ForgotpassScreen extends StatefulWidget {
-  const ForgotpassScreen({super.key});
+class ResetPassScreen extends StatefulWidget {
+  const ResetPassScreen({super.key});
 
   @override
-  State<ForgotpassScreen> createState() => _ForgotpassScreenState();
+  State<ResetPassScreen> createState() => _ResetPassScreenState();
 }
 
-class _ForgotpassScreenState extends State<ForgotpassScreen> {
+class _ResetPassScreenState extends State<ResetPassScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  final TextEditingController _emailTEcontrol = TextEditingController();
   final TextEditingController _passTEcontrol = TextEditingController();
+  final TextEditingController _emailTEcontrol = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +33,17 @@ class _ForgotpassScreenState extends State<ForgotpassScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Your Email Address",
-                        style: Theme.of(context).textTheme.titleLarge
-                        ),
-                      Text("A 6 digit verification pin will be sent to your email",style: Theme.of(context).textTheme.titleSmall),
-                      SizedBox(height: 30),
+                          "Set New Password",
+                          style: Theme.of(context).textTheme.titleLarge
+                      ),
+
+                      SizedBox(height: 20),
                       Container(
                         width: 350,
-                
+
                         child: TextFormField(
                           controller: _emailTEcontrol,
-                          decoration: InputDecoration(hintText: 'Email'),
+                          decoration: InputDecoration(hintText: 'New Password'),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return "Email can't be empty";
@@ -56,6 +56,24 @@ class _ForgotpassScreenState extends State<ForgotpassScreen> {
                             }
                             return null;
                           },
+                        ),
+                      ),
+
+                      SizedBox(height: 20),
+                      Container(
+                        width: 350,
+
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return "Password can't be empty";
+                            }else if(_passTEcontrol.text.length<6){
+                              return "Password must contain 6 characters";
+                            }return null;
+                          },
+                          controller: _passTEcontrol,
+                          obscureText: true,
+                          decoration: InputDecoration(hintText: 'ReType Password'),
                         ),
                       ),
                 
@@ -108,7 +126,7 @@ class _ForgotpassScreenState extends State<ForgotpassScreen> {
 
   @override
   void dispose() {
-    _emailTEcontrol.dispose();
+    _passTEcontrol.dispose();
     _passTEcontrol.dispose();
   }
 }

@@ -166,10 +166,9 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void _loginScreen(){
-    Navigator.pop(context);
+  void _loginScreen() {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
   }
-
   @override
   void dispose() {
     _emailTEcontrol.dispose();

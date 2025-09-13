@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_manager/ui/screens/forgotpass_screen.dart';
+import 'package:task_manager/ui/screens/navigation_bar_holder.dart';
 import 'package:task_manager/ui/screens/signup_screen.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
@@ -80,6 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           if(_formkey.currentState?.validate()==false){
                             return;
                           }
+
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NavigationBarHolder()));
                         },
                         child: Icon(Icons.arrow_circle_right_outlined,size: 30,),
                 

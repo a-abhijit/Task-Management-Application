@@ -73,7 +73,7 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
                           },
                           controller: _passTEcontrol,
                           obscureText: true,
-                          decoration: InputDecoration(hintText: 'ReType Password'),
+                          decoration: InputDecoration(hintText: 'Confirm Password'),
                         ),
                       ),
                 

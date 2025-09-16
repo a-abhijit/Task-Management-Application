@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/ui/screens/new_task_screen.dart';
 import 'package:task_manager/ui/screens/progress_task_screen.dart';
 
 import '../widgets/appBar_widget.dart';
@@ -15,10 +16,10 @@ class _NavigationBarHolderState extends State<NavigationBarHolder> {
   int _selectedindex=0;
 
   final List<Widget> _navigationScreen=[
+    NewTaskScreen(),
     ProgressTaskScreen(),
-    ProgressTaskScreen(),
-    ProgressTaskScreen(),
-    ProgressTaskScreen()
+    NewTaskScreen(),
+    NewTaskScreen()
   ];
 
   @override

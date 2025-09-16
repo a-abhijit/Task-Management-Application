@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/card_widget.dart';
+import '../widgets/task_listview.dart';
 
 class ProgressTaskScreen extends StatefulWidget {
   const ProgressTaskScreen({super.key});
@@ -11,10 +13,13 @@ class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        
-      },child: Icon(Icons.add),),
-
+      body: Column(
+        children: [
+          TaskListView(),
+        ],
+      ),
     );
   }
 }
+
+

@@ -20,18 +20,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> moveToNextScreen() async {
     await Future.delayed(Duration(seconds: 3));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    Navigator.pushReplacementNamed(context, '/loginscreen');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenBackground(
         child: Stack(
           children: [
-            Center(child: SvgPicture.asset('assets/images/logo.svg', height: 45)),
+            Center(
+              child: SvgPicture.asset('assets/images/logo.svg', height: 45),
+            ),
           ],
         ),
       ),

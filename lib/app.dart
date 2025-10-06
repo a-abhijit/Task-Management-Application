@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/ui/screens/login_screen.dart';
+import 'package:task_manager/ui/screens/navigation_bar_holder.dart';
+import 'package:task_manager/ui/screens/signup_screen.dart';
 import 'package:task_manager/ui/screens/splash_screen.dart';
 
 class TaskManagerApp extends StatelessWidget {
@@ -41,10 +44,13 @@ class TaskManagerApp extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none),
         )
       ),
-
-
-
-      home: SplashScreen(),
+      initialRoute: '/',
+      routes: {
+        '/':(context)=>SplashScreen(),
+        '/loginscreen':(context)=>LoginScreen(),
+        '/signupscreen':(context)=>SignupScreen(),
+        '/dashboard':(context)=>NavigationBarHolder()
+      },
     );
   }
 }

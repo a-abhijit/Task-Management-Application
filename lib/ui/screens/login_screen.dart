@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
   
   
   void _onTabSignup(){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
+    Navigator.pushReplacementNamed(context, '/signupscreen');
   }
 
   @override

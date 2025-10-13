@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:task_manager/data/services/api_caller.dart';
+import 'package:task_manager/data/utils/urls.dart';
 import 'package:task_manager/ui/screens/login_screen.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
@@ -19,6 +21,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _lastNameTEcontrol = TextEditingController();
   final TextEditingController _mobileNoTEcontrol = TextEditingController();
 
+  bool progressLoadAnimation = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +40,11 @@ class _SignupScreenState extends State<SignupScreen> {
                         "Join With Us",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
-                
+
                       SizedBox(height: 15),
                       Container(
                         width: 350,
-                
+
                         child: TextFormField(
                           controller: _emailTEcontrol,
                           decoration: InputDecoration(hintText: 'Email'),
@@ -58,7 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           },
                         ),
                       ),
-                
+
                       SizedBox(height: 15),
                       Container(
                         width: 350,
@@ -136,9 +140,9 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                         child: Icon(Icons.arrow_circle_right_outlined),
                       ),
-                
+
                       SizedBox(height: 25),
-                
+
                       RichText(
                         text: TextSpan(
                           text: "Already have an account?",
@@ -150,7 +154,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextSpan(
                               text: " Sign in",
                               style: TextStyle(color: Colors.green),
-                              recognizer: TapGestureRecognizer()..onTap=_loginScreen
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = _loginScreen,
                             ),
                           ],
                         ),
@@ -167,8 +172,30 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void _loginScreen() {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
   }
+
+  Future<void> signUP() async {
+    progressLoadAnimation = true;
+    setState(() {
+    });
+
+    Map<String,dynamic> jsonPostBody ={
+      "email": _emailTEcontrol.text.trim(),
+      "firstName":_firstNameTEcontrol.text.trim(),
+      "lastName":_lastNameTEcontrol.text.trim(),
+      "mobile":_mobileNoTEcontrol.text.trim(),
+      "password":_passTEcontrol.text.trim()
+    };
+
+    final ApiResponse response = await ApiCaller.postRequest(url: URLS.registrationURL);
+
+
+  }
+
   @override
   void dispose() {
     _emailTEcontrol.dispose();

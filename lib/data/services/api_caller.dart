@@ -5,9 +5,9 @@ import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
 class ApiCaller {
-  final Logger _logger = Logger();
+  static final Logger _logger = Logger();
 
-  Future<ApiResponse> getRequest({required String url}) async {
+  static Future<ApiResponse> getRequest({required String url}) async {
     try {
       Uri uri = Uri.parse(url);
 
@@ -44,7 +44,7 @@ class ApiCaller {
       );
     }
   }
-  Future<ApiResponse> postRequest({required String url, Map<String,dynamic>? body}) async {
+  static Future<ApiResponse> postRequest({required String url, Map<String,dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
 
@@ -82,12 +82,12 @@ class ApiCaller {
     }
   }
 
-  void logRequest(String url, {Map<String, dynamic>? body}) {
+  static void logRequest(String url, {Map<String, dynamic>? body}) {
     _logger.i('URL:${url}\n'
         'Request body: ${body}');
   }
 
-  void logResponse(String url, Response response) {
+  static void logResponse(String url, Response response) {
     _logger.i(
       'URL:${url}\n'
       'Status Code: ${response.statusCode}\n'

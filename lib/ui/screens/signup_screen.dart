@@ -76,7 +76,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           },
                           controller: _firstNameTEcontrol,
-                          obscureText: true,
                           decoration: InputDecoration(hintText: 'First Name'),
                         ),
                       ),
@@ -93,7 +92,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           },
                           controller: _lastNameTEcontrol,
-                          obscureText: true,
                           decoration: InputDecoration(hintText: 'Last Name'),
                         ),
                       ),
@@ -110,7 +108,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           },
                           controller: _mobileNoTEcontrol,
-                          obscureText: true,
                           decoration: InputDecoration(hintText: 'Mobile No'),
                         ),
                       ),
@@ -132,14 +129,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                       SizedBox(height: 15),
-                      FilledButton(
-                        onPressed: () {
-                          if (_formkey.currentState?.validate() == false) {
-                            return;
-                          }
-                        },
-                        child: Icon(Icons.arrow_circle_right_outlined),
-                      ),
+                       FilledButton(
+                          onPressed: () {
+                            _onTapSingUp();
+                          },
+                          child: Icon(Icons.arrow_circle_right_outlined),
+                        ),
+
 
                       SizedBox(height: 25),
 
@@ -171,6 +167,13 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
+  void _onTapSingUp(){
+    if(_formkey.currentState!.validate()){
+      signUP();
+    }
+
+}
+
   void _loginScreen() {
     Navigator.push(
       context,
@@ -180,25 +183,37 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Future<void> signUP() async {
     progressLoadAnimation = true;
-    setState(() {
-    });
+    setState(() {});
 
-    Map<String,dynamic> jsonPostBody ={
+    Map<String, dynamic> jsonPostBody = {
       "email": _emailTEcontrol.text.trim(),
-      "firstName":_firstNameTEcontrol.text.trim(),
-      "lastName":_lastNameTEcontrol.text.trim(),
-      "mobile":_mobileNoTEcontrol.text.trim(),
-      "password":_passTEcontrol.text.trim()
+      "firstName": _firstNameTEcontrol.text.trim(),
+      "lastName": _lastNameTEcontrol.text.trim(),
+      "mobile": _mobileNoTEcontrol.text.trim(),
+      "password": _passTEcontrol.text.trim(),
     };
 
-    final ApiResponse response = await ApiCaller.postRequest(url: URLS.registrationURL);
-
-
+    final ApiResponse response = await ApiCaller.postRequest(
+      url: URLS.registrationURL,
+      body: jsonPostBody,
+    );
+    if (response.isSuccess) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Success')));
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Not Success')));
+    }
   }
 
   @override
   void dispose() {
     _emailTEcontrol.dispose();
     _passTEcontrol.dispose();
+    _mobileNoTEcontrol.dispose();
+    _firstNameTEcontrol.dispose();
+    _lastNameTEcontrol.dispose();
   }
 }

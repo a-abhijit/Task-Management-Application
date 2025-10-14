@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:nativewrappers/_internal/vm/lib/convert_patch.dart';
-
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
@@ -44,13 +42,20 @@ class ApiCaller {
       );
     }
   }
-  static Future<ApiResponse> postRequest({required String url, Map<String,dynamic>? body}) async {
+
+  static Future<ApiResponse> postRequest({
+    required String url,
+    Map<String, dynamic>? body,
+  }) async {
     try {
       Uri uri = Uri.parse(url);
 
-      logRequest(url,body: body);
+      logRequest(url, body: body);
 
-      Response response = await post(uri);
+      Response response = await post(uri,
+
+          headers:  {'Content-Type': 'application/json'},
+          body: jsonEncode(body));
 
       logResponse(url, response);
 
@@ -59,7 +64,7 @@ class ApiCaller {
 
       final decodedData = jsonDecode(response.body);
 
-      if (response.statusCode == 200 || response.statusCode==201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return ApiResponse(
           isSuccess: true,
           responseCode: response.statusCode,
@@ -83,8 +88,10 @@ class ApiCaller {
   }
 
   static void logRequest(String url, {Map<String, dynamic>? body}) {
-    _logger.i('URL:${url}\n'
-        'Request body: ${body}');
+    _logger.i(
+      'URL:${url}\n'
+      'Request body: ${body}',
+    );
   }
 
   static void logResponse(String url, Response response) {
